@@ -12,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -20,6 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
+import androidx.navigation.compose.rememberNavController
 import com.example.feedapp.ui.theme.FeedAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,8 +32,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             FeedAppTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    HomeScreen()
+                val navController = rememberNavController()
+                NavHost(navController = navController, startDestination = "Home"){
+                    composable(route = "Home"){
+                        HomeScreen(navController)
+                    }
+                    composable("About"){
+                        AboutScreen(navController)
+                    }
                 }
             }
         }
@@ -38,23 +48,43 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun HomeScreen(){
-    var clicked =  remember { mutableStateOf(Color(0xFFFFFFFF))}
+fun HomeScreen(navController: NavController){
+//    var clicked =  remember { mutableStateOf(Color(0xFFFFFFFF))}
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(clicked.value)
+            .background(Color(0xFFFFFFFF))
     ) {
         Text(
             text = "Home Screen",
             fontSize = 30.sp,
             modifier = Modifier
                 .clickable {
-                clicked.value = Color(0xFF800080)
-
+                navController.navigate(route = "About")
             }
+        )
+    }
+}
+
+@Composable
+fun AboutScreen(navController: NavController){
+//    var clicked =  remember { mutableStateOf(Color(0xFFFFFFFF))}
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFFFFFFF))
+    ) {
+        Text(
+            text = "About Screen",
+            fontSize = 30.sp,
+            modifier = Modifier
+                .clickable {
+                    navController.popBackStack()
+                }
         )
     }
 }
@@ -63,6 +93,6 @@ fun HomeScreen(){
 @Composable
 fun GreetingPreview() {
     FeedAppTheme {
-        HomeScreen()
+//        HomeScreen()
     }
 }
