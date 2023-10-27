@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -38,20 +39,22 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun HomeScreen(){
-    var clicked by remember { mutableStateOf(false) }
+    var clicked =  remember { mutableStateOf(Color(0xFFFFFFFF))}
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.LightGray)
-            .clickable {
-                clicked = !clicked
-            }
+            .background(clicked.value)
     ) {
         Text(
             text = "Home Screen",
-            fontSize = 30.sp
+            fontSize = 30.sp,
+            modifier = Modifier
+                .clickable {
+                clicked.value = Color(0xFF800080)
+
+            }
         )
     }
 }
