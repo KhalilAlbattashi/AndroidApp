@@ -8,9 +8,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.postsapp.ui.composable.PostList
 import com.example.postsapp.ui.theme.PostsAppTheme
+import com.example.postsapp.viewModel.PostViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,29 +24,15 @@ class MainActivity : ComponentActivity() {
         setContent {
             PostsAppTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+                val viewModel: PostViewModel = viewModel()
+                PostListScreen(viewModel)
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PostsAppTheme {
-        Greeting("Android")
-    }
+fun PostListScreen(viewModel: PostViewModel) {
+    val posts by viewModel.posts.collectAsState()
+    PostList(posts)
 }

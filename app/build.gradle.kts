@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.example.postsapp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.postsapp"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -69,4 +69,6 @@ dependencies {
 
     implementation ("com.squareup.moshi:moshi:1.12.0")
     implementation ("com.squareup.moshi:moshi-kotlin:1.12.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
+
 }
