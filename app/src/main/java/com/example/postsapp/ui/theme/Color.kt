@@ -1,4 +1,4 @@
-package com.example.feedapp.ui.theme
+package com.example.postsapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
