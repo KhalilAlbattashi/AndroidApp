@@ -23,7 +23,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PostsAppTheme {
-                // A surface container using the 'background' color from the theme
                 val viewModel: PostViewModel = viewModel()
                 PostListScreen(viewModel)
             }
