@@ -2,6 +2,7 @@ package com.example.postsapp.ui.composable
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -16,7 +17,9 @@ import com.example.postsapp.model.Post
 fun PostList(posts: List<Post>) {
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp) // Adds space between items
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        modifier = Modifier
+            .background(MaterialTheme.colorScheme.background)
     ) {
         items(posts) { post ->
             val animationDuration = 300
@@ -28,8 +31,6 @@ fun PostList(posts: List<Post>) {
             Box(modifier = Modifier.padding(animatedElevation.value)) {
                 PostItem(post)
             }
-
-//            Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)) // Decorative divider
         }
     }
 }
